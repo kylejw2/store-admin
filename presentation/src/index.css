@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+* {
+  background: #fdfdfd;
+  color: #222323;
+}
+
+.logo {
+  font-family: 'Lexend Peta', sans-serif;
+  grid-column-start: 2;
+}
+
+nav {
+  display: grid;
+  text-align: left;
+  grid-template-columns: 20% 60% 20%;
+  text-align: center;
+  height: 10vh;
+  /* border: 1px solid black; */
+  align-items: center;
+}
+
+aside {
+  display: none;
+}
+
+.sub-nav {
+  margin: 30px 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.sub-nav > i {
+  border: 1px solid #222323;
+  padding: 15px;
+  border-radius: 5px;
+  /* font-family: popper; */
+}
+
+tr {
+  font-size: 12px;
+  text-align: center;
+}

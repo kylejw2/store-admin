@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #fdfdfd;
+  color: #222323;
 }
 
 code {
@@ -12,14 +14,15 @@ code {
     monospace;
 }
 
-* {
+/* * {
   background: #fdfdfd;
   color: #222323;
-}
+} */
 
 .logo {
   font-family: 'Lexend Peta', sans-serif;
   grid-column-start: 2;
+  /* text-align: center */
 }
 
 nav {
@@ -52,4 +55,106 @@ aside {
 tr {
   font-size: 12px;
   text-align: center;
+}
+
+/* .container {
+  width: 100%;
+  background: transparent !important;
+  /* height: 100vh; */
+  /* position: relative; */
+  /* background: #333; */
+
+.login {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  margin-top: 55px;
+  background: #fdfdfd
+}
+
+.logo-nav {
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Lexend Peta', sans-serif;
+  background: #fdfdfd;
+}
+
+input {
+  border: none !important;
+  border-bottom: 1px solid #e3e3e3 !important;
+  width: 100%;
+  display: inline;
+  line-height: 40px;
+}
+
+.login > * {
+  margin: 10px;
+}
+
+.login > form > * {
+  margin: 10px;
+}
+
+.login-title {
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 15px 0;
+  font-size: 3rem;
+  font-weight: 100;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login > p {
+  font-size: 14px;
+  text-align: center;
+}
+
+.login > button {
+  border: 1px solid #e3e3e3;
+  line-height: 40px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+canvas {
+  z-index: -1;
+}
+
+p > i {
+  text-decoration: underline;
+}
+p > i:hover {
+  cursor: pointer;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+  .container {
+    width: 80%;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .container {
+    width: 70%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    width: 50%;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    width: 40%;
+  }
 }

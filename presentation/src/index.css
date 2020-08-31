@@ -35,7 +35,7 @@ nav {
   align-items: center;
 }
 
-aside {
+.hidden {
   display: none;
 }
 
@@ -46,9 +46,12 @@ aside {
 }
 
 .sub-nav > i {
-  border: 1px solid #222323;
-  padding: 15px;
-  border-radius: 5px;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background: #222323;
+  font-size: 16px;
   /* font-family: popper; */
 }
 
@@ -131,10 +134,69 @@ p > i:hover {
   cursor: pointer;
 }
 
+.sidebar {
+  position: fixed;
+  width: 150px;
+  height: 100vh;
+  list-style: none;
+  animation-name: sidebar;
+  animation-duration: .7s;
+  border-right: 1px solid #dee2e7
+}
+
+.sidebar > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.sidebar > ul > li {
+  font-size: 13px;
+  margin: 16px 0 16px -24px;
+}
+
+.right-side {
+  margin-left: 150px;
+  animation-name: body;
+  animation-duration: .7s;
+}
+
+@keyframes sidebar {
+  0% {width: 0px}
+  100% {width: 150px}
+}
+
+@keyframes body {
+  0% {margin-left: 0px}
+  100% {margin-left: 150px}
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
   .container {
     width: 80%;
+  }
+  .right-side {
+    margin-left: 200px;
+  }
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar > ul > li {
+    font-size: 16px;
+    margin: 16px 0 16px -8px;
+  }
+
+  @keyframes sidebar {
+    0% {width: 0px}
+    100% {width: 200px}
+  }
+  
+  @keyframes body {
+    0% {margin-left: 0px}
+    100% {margin-left: 200px}
   }
 }
 
@@ -149,6 +211,21 @@ p > i:hover {
 @media (min-width: 992px) {
   .container {
     width: 50%;
+  }
+  .sidebar {
+    width: 300px;
+  }
+  .right-side {
+    margin-left: 300px;
+  }
+  @keyframes sidebar {
+    0% {width: 0px}
+    100% {width: 300px}
+  }
+  
+  @keyframes body {
+    0% {margin-left: 0px}
+    100% {margin-left: 300px}
   }
 }
 

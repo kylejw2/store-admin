@@ -7,7 +7,6 @@ const Entry = (props) => {
     const [password, setPassword] = useState('');
 
     const canvasRef = useRef(null);
-    const contextRef = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;

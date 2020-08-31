@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Admin = () => {
+
+    const [sidebar, setSidebar] = useState(false);
+
+    const toggle = () => {
+        const change = !sidebar;
+        setSidebar(change);
+    }
 
     return (
         <>
         <nav>
-            <i className='fa fa-bars' style={{fontSize: '30px'}}></i>
-            <h1 className='logo'>La'Bore</h1>
+            <i className='fa fa-bars' style={{fontSize: '30px'}} onClick={toggle}></i>
+            <h1 className='logo'>La'Borh</h1>
         </nav>
-        <section className='sub-nav'>
-            <i className='fa fa-filter' style={{fontSize: '20px'}}> Filter by:</i>
-            <i className='fa fa-sort' style={{fontSize: '20px'}} > Sort by:</i>
-        </section>
-        <aside>
-
+        <aside className={sidebar ? '' : 'hidden'}>
+            <div className='sidebar'>
+                <ul>
+                    <li><i className='fa fa-eye'></i> Manage Products</li>
+                    <li><i className='fa fa-plus'></i> Add product</li>
+                    <li><i className='fa fa-user'></i> Create user</li>
+                </ul>
+            </div>
         </aside>
+        <div className={sidebar ? 'right-side' : ''}>
+        <section className='sub-nav'>
+            <i className='fa fa-filter' > Filter by:</i>
+            <i className='fa fa-sort' > Sort by:</i>
+        </section>
         <main>
             <table className="table table-bordered">
                 <thead className="table-head">
@@ -31,6 +45,7 @@ const Admin = () => {
                 </tbody>
             </table>
         </main>
+        </div>
         </>
     )
 }

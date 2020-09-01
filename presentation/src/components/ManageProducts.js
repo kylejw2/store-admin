@@ -1,6 +1,25 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 const ManageProducts = () => {
+
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        getProducts();
+    }, [])
+
+    const getProducts = async () => {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/images`);
+        const products = await response.json();
+        setProducts(products);
+    }
+
+    const getImages = () => {
+        return products.map(product => {
+            return <img width='200' src={product.imageData} alt='' key={product.imageName} />
+        })
+    }
+
     return (
         <>
         <section className='sub-nav'>
@@ -22,6 +41,7 @@ const ManageProducts = () => {
 
                 </tbody>
             </table>
+            {getImages()}
         </main>
         </>
     )

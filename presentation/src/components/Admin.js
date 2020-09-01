@@ -6,7 +6,7 @@ import CreateUser from './CreateUser';
 const Admin = () => {
 
     const [sidebar, setSidebar] = useState(false);
-    const [display, setDisplay] = useState('Manage Products');
+    const [display, setDisplay] = useState('Add Product');
 
     const toggle = () => {
         const change = !sidebar;

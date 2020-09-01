@@ -38,7 +38,7 @@ const Entry = (props) => {
 
     return (
         <div>
-            <h1 className='logo-nav'>La'Bore</h1>
+            <h1 className='logo-nav'>La'Borh</h1>
             <hr />
             <canvas 
                 style={{position: "fixed"}}
@@ -47,7 +47,7 @@ const Entry = (props) => {
             <div className='container'>
                 <div className='login'>
                     <h1 className='login-title'>Log in</h1>
-                    <p>Welcome back! Login to access La'Bore admin page.</p>
+                    <p>Welcome back! Login to access La'Borh admin page.</p>
                     <p>Did you <i>forget your password?</i></p>
                     <form>
                         <div>

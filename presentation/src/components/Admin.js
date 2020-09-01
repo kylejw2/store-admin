@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import ManageProducts from './ManageProducts';
+import AddProduct from './AddProduct';
+import CreateUser from './CreateUser';
 
 const Admin = () => {
 
     const [sidebar, setSidebar] = useState(false);
+    const [display, setDisplay] = useState('Manage Products');
 
     const toggle = () => {
         const change = !sidebar;
@@ -18,33 +22,17 @@ const Admin = () => {
         <aside className={sidebar ? '' : 'hidden'}>
             <div className='sidebar'>
                 <ul>
-                    <li><i className='fa fa-eye'></i> Manage Products</li>
-                    <li><i className='fa fa-plus'></i> Add product</li>
-                    <li><i className='fa fa-user'></i> Create user</li>
+                    <li onClick={() => setDisplay('Manage Products')}><i className='fa fa-eye'></i> Manage products</li>
+                    <li onClick={() => setDisplay('Add Product')}><i className='fa fa-plus'></i> Add product</li>
+                    <li onClick={() => setDisplay('Create User')}><i className='fa fa-user'></i> Create user</li>
                 </ul>
             </div>
         </aside>
         <div className={sidebar ? 'right-side' : ''}>
-        <section className='sub-nav'>
-            <i className='fa fa-filter' > Filter by:</i>
-            <i className='fa fa-sort' > Sort by:</i>
-        </section>
-        <main>
-            <table className="table table-bordered">
-                <thead className="table-head">
-                    <tr>
-                        <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Product</th>
-                        <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Quantity</th>
-                        <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Price</th>
-                        <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Status</th>
-                        <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </main>
+            { display === 'Manage Products' ? <ManageProducts /> :
+                display === 'Add Product' ? <AddProduct /> : <CreateUser />
+            } 
+            {/* <ManageProducts /> */}
         </div>
         </>
     )

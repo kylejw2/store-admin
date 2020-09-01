@@ -67,7 +67,7 @@ tr {
   /* position: relative; */
   /* background: #333; */
 
-.login {
+.login, .add-product {
   display: flex;
   flex-direction: column;
   border: 1px solid #e3e3e3;
@@ -91,12 +91,25 @@ input {
   line-height: 40px;
 }
 
-.login > * {
+.login > *, .add-product > * {
   margin: 10px;
 }
 
 .login > form > * {
   margin: 10px;
+}
+
+.add-product > form > * {
+  margin: 10px 0px;
+}
+
+.is-active {
+  display: grid;
+  grid-template-columns: 10% 40% 50%;
+}
+
+.is-active > * {
+  line-height: 12px;
 }
 
 .login-title {
@@ -115,7 +128,7 @@ input {
   text-align: center;
 }
 
-.login > button {
+.login > button , .add-product > button {
   border: 1px solid #e3e3e3;
   line-height: 40px;
   border-radius: 5px;

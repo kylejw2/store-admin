@@ -28,6 +28,24 @@ const createProduct = (product) => {
     return iou;
 } 
 
+// Read products
+const readProducts = () => {
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options, (err, client) => {
+            assert.equal(err, null);
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+            collection.find({}).toArray((err, docs) => {
+                assert.equal(err, null);
+                resolve(docs);
+                client.close();
+            });
+        });
+    });
+    return iou;
+}
+
 module.exports = {
-    createProduct
+    createProduct,
+    readProducts
 }

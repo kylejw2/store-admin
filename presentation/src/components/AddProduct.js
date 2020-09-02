@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
-// import { FilePond, File, registerPlugin } from 'react-filepond';
-// import 'filepond/dist/filepond.min.css';
-// import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import FileBase from 'react-file-base64';
+import Tags from './Tags';
 
 const AddProduct = () => {
 
@@ -138,21 +134,7 @@ const AddProduct = () => {
                         <label style={{color: '#7d7d7d'}}>Product active</label>
                     </div>
                     <hr />
-                    <p><i>Select all that apply</i></p>
-                    <div className='tags'>
-                        <input type="checkbox" id="shirt" name="shirt" checked={shirt} onChange={handleCheck}/>
-                        <label htmlFor="shirt"> Shirt</label>
-                        <input type="checkbox" id="shoes" name="shoes" checked={shoes} onChange={handleCheck} />
-                        <label htmlFor="shoes"> Shoes</label>
-                        <input type="checkbox" id="pants" name="pants" checked={pants} onChange={handleCheck}/>
-                        <label htmlFor="pants"> Pants</label>
-                        <input type="checkbox" id="hoodie" name="hoodie" checked={hoodie} onChange={handleCheck} />
-                        <label htmlFor="hoodie"> Hoodie</label>
-                        <input type="checkbox" id="socks" name="socks" checked={socks} onChange={handleCheck}/>
-                        <label htmlFor="socks"> Socks</label>
-                        <input type="checkbox" id="jacket" name="jacket" checked={jacket} onChange={handleCheck}/>
-                        <label htmlFor="jacket"> Jacket</label>
-                    </div>
+                    <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
                     
                     <FileBase type="file" multiple={false} onDone={getBaseFile} />
                 </form>

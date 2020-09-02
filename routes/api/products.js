@@ -8,7 +8,7 @@ const {
 
 // GET the products
 router.get('/', async (req, res) => {
-    const response = readProducts();
+    const response = await readProducts();
     res.send(response);
 })
 

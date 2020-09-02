@@ -48,9 +48,10 @@ nav {
 .sub-nav > i {
   border: 1px solid #eee;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 7px;
   color: white;
-  background: #222323;
+  background: linear-gradient(-45deg, #222323, rgb(58, 58, 58));
+  /* background: #222323; */
   font-size: 16px;
   /* font-family: popper; */
 }
@@ -140,9 +141,6 @@ canvas {
   z-index: -1;
 }
 
-p > i {
-  text-decoration: underline;
-}
 p > i:hover {
   cursor: pointer;
 }
@@ -185,6 +183,31 @@ p > i:hover {
   /* line-height: 20px; */
   align-self: center;
   margin: 4px;
+}
+
+.deactivate, .activate, .update {
+  border-radius: 5px;
+  border: none;
+  margin: 2px;
+}
+
+.deactivate {
+  color: white;
+  background: linear-gradient(-45deg, red, rgb(207, 41, 0))
+}
+
+.activate {
+  color: white;
+  background: linear-gradient(-45deg, green, rgb(0, 184, 0))
+}
+
+.update {
+  background: none;
+  border: 1px solid #292929
+}
+
+.display-product > label {
+  margin-top: 25px;
 }
 
 @keyframes sidebar {

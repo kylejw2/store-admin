@@ -48,6 +48,22 @@ const getImages = () => {
     return iou;
 }
 
+// Get the images from a specific product
+const getProductsImages = (images) => {
+    const iou = new Promise((resolve, reject) => {
+        assert.equal(err, null);
+        const db = client.db(db_name);
+        const collection = db.collection(col_name);
+        collection.find({}).toArray((err, docs) => {
+            assert.equal(err, null);
+            const images = [];
+            for (let i = 0; i < docs.length; i++) {
+                // if () match the images needed and send them back
+            }
+        })
+    })
+}
+
 module.exports = {
     uploadImage,
     getImages

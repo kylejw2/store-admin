@@ -4,7 +4,8 @@ var router = express.Router();
 
 const {
   uploadImage,
-  getImages
+  getImages,
+  getProductsImages
 } = require('../../data/images');
 
 const {
@@ -25,6 +26,12 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     const response = await getImages();
     res.send(response);
+})
+
+router.get('/:id', async (req, res) => {
+  const body = req.body;
+  const response = await getProductsImages(body);
+  res.send(response);
 })
 
 module.exports = router;

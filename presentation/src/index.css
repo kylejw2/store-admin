@@ -175,6 +175,18 @@ p > i:hover {
   animation-duration: .7s;
 }
 
+.tags {
+  display: grid;
+  grid-template-columns: 5% 25% 5% 25% 5% 25%;
+  grid-template-rows: 1fr 1fr;
+  /* align-items: flex-start; */
+}
+.tags > * {
+  /* line-height: 20px; */
+  align-self: center;
+  margin: 4px;
+}
+
 @keyframes sidebar {
   0% {width: 0px}
   100% {width: 150px}

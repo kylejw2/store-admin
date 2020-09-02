@@ -7,7 +7,6 @@ const {ObjectId} = require('mongodb');
 const url = process.env.DB_URL
 const db_name = process.env.DB_NAME;
 const col_name = process.env.COL_NAME;
-// const col2_name = process.env.COL2_NAME;
 const options = {
     useUnifiedTopology: true
 }
@@ -24,7 +23,7 @@ const uploadImage = (img) => {
             const collection = db.collection(col_name);
             collection.insertOne(img, (err, result) => {
                 assert.equal(err, null);
-                resolve(result);
+                resolve(result.ops[0]);
                 client.close();
             });
         });

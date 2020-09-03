@@ -49,22 +49,52 @@ const getImages = () => {
 }
 
 // Get the images from a specific product
-const getProductsImages = (images) => {
+const getProductsImages = (productId) => {
     const iou = new Promise((resolve, reject) => {
-        assert.equal(err, null);
-        const db = client.db(db_name);
-        const collection = db.collection(col_name);
-        collection.find({}).toArray((err, docs) => {
+            MongoClient.connect(url, options, (err, client) => {
             assert.equal(err, null);
-            const images = [];
-            for (let i = 0; i < docs.length; i++) {
-                // if () match the images needed and send them back
-            }
-        })
-    })
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+            collection.find({}).toArray((err, docs) => {
+                assert.equal(err, null);
+                const images = [];
+                for (let i = 0; i < docs.length; i++) {
+                    if (docs[i].productId === productId) {
+                        images.push(docs[i]);
+                    }
+                }
+                resolve(images);
+                client.close();
+            });
+        });
+    });
+    return iou;
+};
+
+// Add the product ID to the associated pictures
+const addProductId = (id, image) => {
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options, (err, client) => {
+            assert.equal(err, null);
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+            collection.findOneAndUpdate(
+                {_id: new ObjectId(image)},
+                {$set: {productId: id}},
+                (err, result) => {
+                    assert.equal(err, null);
+                    resolve(result);
+                    client.close();
+                }
+            );
+        });
+    });
+    return iou;
 }
 
 module.exports = {
     uploadImage,
-    getImages
+    getImages,
+    getProductsImages,
+    addProductId
 }

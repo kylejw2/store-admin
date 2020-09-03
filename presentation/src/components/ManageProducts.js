@@ -16,6 +16,7 @@ const ManageProducts = (props) => {
     const getProducts = async () => {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
         const products = await response.json();
+        console.log(products);
         setProducts(products);
     }
 

@@ -59,7 +59,7 @@ const DisplayProduct = (props) => {
     }
 
     const getImages = async () => {
-        
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/images/${props.product._id}`)
     }
 
     return (
@@ -76,7 +76,7 @@ const DisplayProduct = (props) => {
                 <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
             </section>
             <section>
-                {getImages()}
+                {/* {getImages()} */}
             </section>
         </div>
     )

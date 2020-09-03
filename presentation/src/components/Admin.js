@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ManageProducts from './ManageProducts';
 import AddProduct from './AddProduct';
 import CreateUser from './CreateUser';
-import DisplayProduct from './DisplayProduct';
 
 const Admin = () => {
 
@@ -12,10 +11,6 @@ const Admin = () => {
     const toggle = () => {
         const change = !sidebar;
         setSidebar(change);
-    }
-
-    const changeDisplay = (disp) => {
-        setDisplay(disp);
     }
 
     return (

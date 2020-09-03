@@ -3,7 +3,8 @@ var router = express.Router();
 
 // The create product function is in the images.js file of this folder
 const {
-  readProducts
+  readProducts,
+  changeStatus
 } = require('../../data/products');
 
 // GET the products
@@ -11,5 +12,13 @@ router.get('/', async (req, res) => {
     const response = await readProducts();
     res.send(response);
 })
+
+// PATCH a product, changes the status
+router.patch('/:id', async (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+  const response = await changeStatus(id, body);
+  res.send(response);
+}) 
 
 module.exports = router;

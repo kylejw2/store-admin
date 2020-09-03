@@ -37,13 +37,13 @@ const AddProduct = () => {
     }
 
     const uploadImage = async () => {
-        if (images === 'invalid' || images === '') {
-            setWarning(true);
-            return;
-        }
         if (name === '' || quantity === '' || price === '') {
             setWarning2(true);
             return
+        }
+        if (images === 'invalid' || images === '') {
+            setWarning(true);
+            return;
         }
         setWarning2(false);
         const style = [];
@@ -61,7 +61,7 @@ const AddProduct = () => {
             style: style,
             images: images
         }
-        console.log(product);
+
         const options = {
             method: 'POST',
             headers: {
@@ -69,7 +69,18 @@ const AddProduct = () => {
             },
             body: JSON.stringify(product)
         }
-        await fetch(`${process.env.REACT_APP_API_URL}/images`, options);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/images`, options);
+        const data = await response.json();
+
+        // use a PATCH method to update the existing photos with the corresponding product's id
+        const id = data._id;
+        await fetch(`${process.env.REACT_APP_API_URL}/images/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data.images)
+        })
         refresh();
     }// do a single image and then multiple images
 

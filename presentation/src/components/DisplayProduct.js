@@ -144,7 +144,7 @@ const DisplayProduct = (props) => {
                 </div>
                 <div className='sub-images'>
                     {displayImages()}
-                    {images.length > 1 ? <i className='fa fa-trash'></i> : ''}
+                    {/* {images.length > 1 ? <i className='fa fa-trash'></i> : ''} */}
                 </div>
             </section>
             <section className='display-product display-product-container'>

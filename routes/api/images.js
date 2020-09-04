@@ -12,13 +12,19 @@ const {
 const {
   createProduct
 } = require('../../data/products');
+const { response } = require('express');
 
 // POST an image with product
 router.post('/', async (req, res) => {
   const body = req.body;
-  const img = body.images;
-  const response = await uploadImage(img);
-  body.images = [response._id];
+  const imgs = body.images;
+  const responses = [];
+  for (let i = 0; i < imgs.length; i++) {
+    const response = await uploadImage(imgs[i]);
+    await responses.push(response);
+  }
+  const ids = responses.map(res => res._id);
+  body.images = [...ids];
   const data = await createProduct(body);
   res.send(data);
 });
@@ -27,10 +33,12 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   const productId = req.params.id;
   const images = req.body;
+  const responses = [];
   for (let i = 0; i < images.length; i++) {
-    await addProductId(productId, images[i]);
+    const data = await addProductId(productId, images[i]);
+    responses.push(data);
   }
-  res.send();
+  res.send(responses);
 })
 
 // GET the images

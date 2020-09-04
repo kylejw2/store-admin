@@ -83,7 +83,7 @@ const addProductId = (id, image) => {
                 {$set: {productId: id}},
                 (err, result) => {
                     assert.equal(err, null);
-                    resolve(result);
+                    resolve(result.value);
                     client.close();
                 }
             );

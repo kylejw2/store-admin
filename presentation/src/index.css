@@ -129,7 +129,7 @@ input {
   text-align: center;
 }
 
-.login > button , .add-product > button {
+.login > button , .add-product > button, .display-product > button {
   border: 1px solid #e3e3e3;
   line-height: 40px;
   border-radius: 5px;
@@ -175,7 +175,7 @@ p > i:hover {
 
 .tags {
   display: grid;
-  grid-template-columns: 5% 25% 5% 25% 5% 25%;
+  grid-template-columns: 10% 25% 10% 25% 10% 25%;
   grid-template-rows: 1fr 1fr;
   /* align-items: flex-start; */
 }
@@ -208,6 +208,36 @@ p > i:hover {
 
 .display-product > label {
   margin-top: 25px;
+}
+
+.main-image > img {
+  width: 300px;
+}
+
+.sub-images > img {
+  width: 80px;
+  margin: 5px;
+  border: 1px solid #e3e3e3;
+}
+
+.display-product-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.display-product > button {
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.loading { 
+  font-size: larger;
+  font-weight: 600;
+  text-align: center;
+}
+
+.danger {
+  color: red;
 }
 
 @keyframes sidebar {
@@ -266,6 +296,15 @@ p > i:hover {
   .right-side {
     margin-left: 300px;
   }
+  .display-product-page {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .main-image > img {
+    width: 420px;
+  }
+
   @keyframes sidebar {
     0% {width: 0px}
     100% {width: 300px}

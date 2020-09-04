@@ -11,13 +11,14 @@ const AddProduct = () => {
     const [images, setImages] = useState('');
     const [warning, setWarning] = useState(false);
     const [warning2, setWarning2] = useState(false);
-    const [myImage, setMyImage] = useState('');
+    // const [myImage, setMyImage] = useState('');
     const [shirt, setShirt] = useState(false);
     const [shoes, setShoes] = useState(false);
     const [pants, setPants] = useState(false);
     const [hoodie, setHoodie] = useState(false);
     const [socks, setSocks] = useState(false);
     const [jacket, setJacket] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const refresh = () => {
         setName('');
@@ -27,7 +28,7 @@ const AddProduct = () => {
         setImages('');
         setWarning(false);
         setWarning2(false);
-        setMyImage('');
+        // setMyImage('');
         setShirt(false);
         setShoes(false);
         setPants(false);
@@ -41,10 +42,10 @@ const AddProduct = () => {
             setWarning2(true);
             return
         }
-        if (images === 'invalid' || images === '') {
-            setWarning(true);
-            return;
-        }
+        // if (images === 'invalid' || images === '') {
+        //     setWarning(true);
+        //     return;
+        // }
         setWarning2(false);
         const style = [];
         if (shirt) {style.push('shirt')}
@@ -61,7 +62,6 @@ const AddProduct = () => {
             style: style,
             images: images
         }
-
         const options = {
             method: 'POST',
             headers: {
@@ -69,6 +69,7 @@ const AddProduct = () => {
             },
             body: JSON.stringify(product)
         }
+        setLoading(true);
         const response = await fetch(`${process.env.REACT_APP_API_URL}/images`, options);
         const data = await response.json();
 
@@ -82,22 +83,27 @@ const AddProduct = () => {
             body: JSON.stringify(data.images)
         })
         refresh();
+        setLoading(false);
     }// do a single image and then multiple images
 
     // function to capture base64 format of an image
     const getBaseFile = (files) => {
-        if (files.type !== 'image/jpeg') {
-            setMyImage('');
-            setImages('invalid');
-            return;
+        const imageObjs = [];
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].type !== 'image/jpeg') {
+                // setMyImage('');
+                setImages('invalid');
+                return;
+            }
+            let imageObj = {
+                imageName: "base-image-" + Date.now(),
+                imageData: files[i].base64.toString()
+            };
+            imageObjs.push(imageObj);
         }
-        let imageObj = {
-        imageName: "base-image-" + Date.now(),
-        imageData: files.base64.toString()
-        };
         setWarning(false);
-        setMyImage(imageObj.imageData);
-        setImages(imageObj);
+        // setMyImage(imageObj.imageData);
+        setImages(imageObjs);
     }
 
     const handleCheck = ({target}) => {
@@ -147,10 +153,11 @@ const AddProduct = () => {
                     <hr />
                     <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
                     
-                    <FileBase type="file" multiple={false} onDone={getBaseFile} />
+                    <FileBase type="file" multiple={true} onDone={getBaseFile} />
                 </form>
                 <button onClick={uploadImage}>Add Product</button>
-                <img width='100' src={myImage} alt="No image selected" />
+                {loading ? <div className='loading'>Uploading product - Do not refresh browser or return to home page</div> : ''}
+                {/* <img width='100' src={myImage} alt="No image selected" /> */}
                 {warning2 ? <div style={{color: 'red'}}>All fields are required</div> : ''}
                 {warning ? <div style={{color: 'red'}}>File type not supported</div> : ''}
             </div>

@@ -112,6 +112,7 @@ const DisplayProduct = (props) => {
     const deleteProduct = async () => {
         const result = window.confirm('You cannot recover this product once it is deleted. Are you sure you want to continue?');
         if (!result) {return;}
+        setWarning(true);
         const options = {
             method: 'DELETE'
         }
@@ -121,7 +122,7 @@ const DisplayProduct = (props) => {
         // Delete the images
         const options2 = {
             method: 'DELETE',
-            body: JSON.stringify(props.product.images)
+            body: JSON.stringify({images: props.product.images})
         }
         const data = await fetch(`${process.env.REACT_APP_API_URL}/images`, options2);
         await props.getProducts();
@@ -152,6 +153,7 @@ const DisplayProduct = (props) => {
                 <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
                 {warning2 ? <div className='danger'>Name, quantity and price fields must be filled</div> : ''}
                 <button style={{width: '100%'}} onClick={updateProduct}>Update</button>
+                {warning ? <div className='loading'>Deleting product - Do not refresh browser or return to home page</div> : ''}
                 <button style={{width: '100%', background: 'red', color:'white', marginBottom: '15px'}} onClick={deleteProduct}>Delete product</button>
             </section>
         </div>

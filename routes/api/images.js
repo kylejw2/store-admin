@@ -6,7 +6,8 @@ const {
   uploadImage,
   getImages,
   getProductsImages,
-  addProductId
+  addProductId,
+  deleteImages
 } = require('../../data/images');
 
 const {
@@ -51,6 +52,16 @@ router.get('/:id', async (req, res) => {
   const productId = req.params.id;
   const response = await getProductsImages(productId);
   res.send(response);
+})
+
+router.delete('/', async (req, res) => {
+  const body = req.body;
+  const responses = [];
+  for (let i = 0; i < body.images.length; i++) {
+    const response = await deleteImages(body.images[i]);
+    responses.push(response);
+  }
+  res.send(responses);
 })
 
 module.exports = router;

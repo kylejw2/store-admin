@@ -78,7 +78,7 @@ const replaceProduct = (id, product) => {
                 product,
                 (err, result) => {
                     assert.equal(err, null);
-                    resolve(result);
+                    resolve(result.value);
                     client.close();
                 }
             );

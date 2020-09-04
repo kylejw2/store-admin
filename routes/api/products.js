@@ -5,7 +5,8 @@ var router = express.Router();
 const {
   readProducts,
   changeStatus,
-  replaceProduct
+  replaceProduct,
+  deleteProduct
 } = require('../../data/products');
 
 // GET the products
@@ -27,6 +28,12 @@ router.put('/:id', async (req, res) => {
   const id = req.params.id;
   const body = req.body;
   const response = await replaceProduct(id, body);
+  res.send(response);
+})
+
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+  const response = await deleteProduct(id);
   res.send(response);
 })
 

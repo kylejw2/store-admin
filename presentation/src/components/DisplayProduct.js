@@ -115,7 +115,15 @@ const DisplayProduct = (props) => {
         const options = {
             method: 'DELETE'
         }
+        // Delete the product
         const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${props.product._id}`, options);
+
+        // Delete the images
+        const options2 = {
+            method: 'DELETE',
+            body: JSON.stringify(props.product.images)
+        }
+        const data = await fetch(`${process.env.REACT_APP_API_URL}/images`, options2);
         await props.getProducts();
         props.changeDisplay('All', '');
     }

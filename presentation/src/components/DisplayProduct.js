@@ -17,6 +17,13 @@ const DisplayProduct = (props) => {
     const [socks, setSocks] = useState(false);
     const [jacket, setJacket] = useState(false);
 
+    const getImages = async () => {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/images/${props.product._id}`);
+        const data = await response.json();
+        setMainImage(data[0]);
+        setImages(data);
+    }
+
     useEffect(() => {
         for (let i = 0; i < props.product.style.length; i++) {
             if (props.product.style[i] === 'shirt') {setShirt(true)}
@@ -56,13 +63,6 @@ const DisplayProduct = (props) => {
                 update = !jacket;
                 setJacket(update);
         }
-    }
-
-    const getImages = async () => {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/images/${props.product._id}`);
-        const data = await response.json();
-        setMainImage(data[0]);
-        setImages(data);
     }
 
     const displayImages = () => {
@@ -113,18 +113,23 @@ const DisplayProduct = (props) => {
         const result = window.confirm('You cannot recover this product once it is deleted. Are you sure you want to continue?');
         if (!result) {return;}
         setWarning(true);
+        const imagesToDelete = {images: props.product.images};
         const options = {
             method: 'DELETE'
         }
         // Delete the product
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${props.product._id}`, options);
+        await fetch(`${process.env.REACT_APP_API_URL}/products/${props.product._id}`, options);
 
         // Delete the images
         const options2 = {
             method: 'DELETE',
-            body: JSON.stringify({images: props.product.images})
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(imagesToDelete)
         }
-        const data = await fetch(`${process.env.REACT_APP_API_URL}/images`, options2);
+        console.log(options2)
+        await fetch(`${process.env.REACT_APP_API_URL}/images`, options2);
         await props.getProducts();
         props.changeDisplay('All', '');
     }

@@ -96,7 +96,7 @@ const deleteProduct = (id) => {
             const collection = db.collection(col_name);
             collection.findOneAndDelete({_id: new ObjectId(id)}, (err, result) => {
                 assert.equal(err, null);
-                resolve(result);
+                resolve(result.value);
                 client.close();
             });
         });

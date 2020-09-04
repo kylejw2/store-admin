@@ -109,6 +109,17 @@ const DisplayProduct = (props) => {
         // redirect the admin to the manage products page or send a confirmation alert
     }
 
+    const deleteProduct = async () => {
+        const result = window.confirm('You cannot recover this product once it is deleted. Are you sure you want to continue?');
+        if (!result) {return;}
+        const options = {
+            method: 'DELETE'
+        }
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${props.product._id}`, options);
+        await props.getProducts();
+        props.changeDisplay('All', '');
+    }
+
     return (
         <>
         <p onClick={() => props.changeDisplay('All', {})}><i style={{margin: '0px 10px 0 5%', border: 'none !important'}} className="fa fa-arrow-left"></i> Return</p>
@@ -133,6 +144,7 @@ const DisplayProduct = (props) => {
                 <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
                 {warning2 ? <div className='danger'>Name, quantity and price fields must be filled</div> : ''}
                 <button style={{width: '100%'}} onClick={updateProduct}>Update</button>
+                <button style={{width: '100%', background: 'red', color:'white', marginBottom: '15px'}} onClick={deleteProduct}>Delete product</button>
             </section>
         </div>
         </>

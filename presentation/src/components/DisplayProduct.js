@@ -87,6 +87,7 @@ const DisplayProduct = (props) => {
             quantity: quantity,
             price: price,
             images: props.product.images,
+            status: props.product.status,
             style: []
         }
         if (shirt) {product.style.push('shirt')}
@@ -103,6 +104,8 @@ const DisplayProduct = (props) => {
             body: JSON.stringify(product)
         }
         await fetch(`${process.env.REACT_APP_API_URL}/products/${props.product._id}`, options);
+        await props.getProducts();
+        props.changeDisplay('All', '');
         // redirect the admin to the manage products page or send a confirmation alert
     }
 

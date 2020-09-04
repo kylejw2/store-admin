@@ -23,7 +23,7 @@ router.patch('/:id', async (req, res) => {
 }) 
 
 // UPDATE (PUT) an existing product
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const id = req.params.id;
   const body = req.body;
   const response = await replaceProduct(id, body);

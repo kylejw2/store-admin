@@ -57,6 +57,27 @@ const changeStatus = (id, bool) => {
                 {$set: {status: bool.bool}},
                 (err, result) => {
                     assert.equal(err, null);
+                    resolve(result.value);
+                    client.close();
+                }
+            );
+        });
+    });
+    return iou;
+}
+
+// Update product
+const replaceProduct = (id, product) => {
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options, (err, client) => {
+            assert.equal(err, null);
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+            collection.findOneAndReplace(
+                {_id: new ObjectId(id)},
+                product,
+                (err, result) => {
+                    assert.equal(err, null);
                     resolve(result);
                     client.close();
                 }
@@ -69,5 +90,6 @@ const changeStatus = (id, bool) => {
 module.exports = {
     createProduct,
     readProducts,
-    changeStatus
+    changeStatus,
+    replaceProduct
 }

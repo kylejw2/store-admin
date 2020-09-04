@@ -74,6 +74,36 @@ const ManageProducts = (props) => {
         else {setLastChange(val);}
     }
 
+    const sortActivity = () => {
+        const myProducts = [...products];
+        myProducts.sort((a,b) => {
+            if (lastChange === 'status') {
+                if (a.status === true && a.status !== b.status) {
+                    return -1;
+                } else if (a.status === false && a.status !== b.status) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+            else {
+                if (a.status === true && a.status !== b.status) {
+                    return 1;
+                } else if (a.status === false && a.status !== b.status) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        })
+        setProducts(myProducts);
+        if (lastChange === 'status') {
+            setLastChange('');
+            return;
+        }
+        setLastChange('status');
+    }
+
     return (
         <>
         {display === 'All' ? 
@@ -85,7 +115,7 @@ const ManageProducts = (props) => {
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Product <i onClick={alphabetize} className='fa fa-sort'></i></th>
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Quantity <i onClick={() => sortNum('quantity')} className='fa fa-sort'></i></th>
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Price <i onClick={() => sortNum('price')} className='fa fa-sort'></i></th>
-                            <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Status <i className='fa fa-sort'></i></th>
+                            <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Status <i onClick={sortActivity} className='fa fa-sort'></i></th>
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Actions</th>
                         </tr>
                     </thead>
@@ -96,7 +126,7 @@ const ManageProducts = (props) => {
             </main> 
             </> :
             <>
-            <DisplayProduct product={product} changeDisplay={changeDisplay}/>
+            <DisplayProduct product={product} getProducts={getProducts} changeDisplay={changeDisplay}/>
             </>
         }
         

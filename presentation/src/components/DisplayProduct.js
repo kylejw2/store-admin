@@ -108,14 +108,17 @@ const DisplayProduct = (props) => {
             return;
         }
         setUpdating(true);
-        const optionsImagesDelete = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({images: imagesToDelete})
+        if (imagesToDelete !== '') {
+            const optionsImagesDelete = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(imagesToDelete)
+            }
+            await fetch(`${process.env.REACT_APP_API_URL}/images`, optionsImagesDelete);
         }
-        await fetch(`${process.env.REACT_APP_API_URL}/images`, optionsImagesDelete);
+        
         let myImages = [];
         if (newImages !== '') {
             const optionsImages = {
@@ -160,7 +163,6 @@ const DisplayProduct = (props) => {
         const result = window.confirm('You cannot recover this product once it is deleted. Are you sure you want to continue?');
         if (!result) {return;}
         setWarning(true);
-        const imagesDelete = {images: props.product.images};
         const options = {
             method: 'DELETE'
         }
@@ -168,6 +170,7 @@ const DisplayProduct = (props) => {
         await fetch(`${process.env.REACT_APP_API_URL}/products/${props.product._id}`, options);
 
         // Delete the images
+        const imagesDelete = images.map(image => image._id);
         const options2 = {
             method: 'DELETE',
             headers: {

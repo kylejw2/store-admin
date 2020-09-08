@@ -57,8 +57,8 @@ router.get('/:id', async (req, res) => {
 router.delete('/', async (req, res) => {
   const body = req.body;
   const responses = [];
-  for (let i = 0; i < body.images.length; i++) {
-    const response = await deleteImages(body.images[i]);
+  for (let i = 0; i < body.length; i++) {
+    const response = await deleteImages(body[i]);
     responses.push(response);
   }
   res.send(responses);

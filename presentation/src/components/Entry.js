@@ -1,7 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 
 const Entry = (props) => {
-    // props.history.push('/Admin');
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -34,7 +33,10 @@ const Entry = (props) => {
 
         animate();
     })
-      
+
+    const forgotPassword = () => {
+        window.alert('Please contact your supervisor for help.')
+    }
 
     return (
         <div>
@@ -48,7 +50,7 @@ const Entry = (props) => {
                 <div className='login'>
                     <h1 className='login-title'>Log in</h1>
                     <p>Welcome back! Login to access La'Borh admin page.</p>
-                    <p>Did you <i>forget your password?</i></p>
+                    <p>Did you <i onClick={forgotPassword}>forget your password?</i></p>
                     <form>
                         <div>
                             <input type='text' placeholder='Username' value={username} onChange={({target}) => setUsername(target.value)} />

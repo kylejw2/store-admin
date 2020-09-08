@@ -24,7 +24,7 @@ const Admin = () => {
                 <ul>
                     <li onClick={() => setDisplay('Manage Products')}><i className='fa fa-eye'></i> Manage products</li>
                     <li onClick={() => setDisplay('Add Product')}><i className='fa fa-plus'></i> Add product</li>
-                    <li onClick={() => setDisplay('Create User')}><i className='fa fa-user'></i> Create user</li>
+                    {/* <li onClick={() => setDisplay('Create User')}><i className='fa fa-user'></i> Create user</li> */}
                 </ul>
             </div>
         </aside>
@@ -32,7 +32,6 @@ const Admin = () => {
             { display === 'Manage Products' ? <ManageProducts /> :
                 display === 'Add Product' ? <AddProduct /> : <CreateUser />
             } 
-            {/* <ManageProducts /> */}
         </div>
         </>
     )

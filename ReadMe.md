@@ -1,0 +1,2 @@
+# La'Borh Admin Page
+La'Borh is an e-commerce site selling clothes. This admin page allows administrators to update existing products, add new products, and control which products are seen by customers on the actual e-commerce site through this easy-to-use user interface.

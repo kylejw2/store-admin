@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import FileBase from 'react-file-base64';
 import Tags from './Tags';
 
 const DisplayProduct = (props) => {
@@ -7,6 +8,8 @@ const DisplayProduct = (props) => {
     const [quantity, setQuantity] = useState(props.product.quantity);
     const [price, setPrice] = useState(props.product.price);
     const [images, setImages] = useState('');
+    const [imagesToDelete, setImagesToDelete] = useState('');
+    const [newImages, setNewImages] = useState('');
     const [mainImage, setMainImage] = useState('');
     const [warning, setWarning] = useState(false);
     const [warning2, setWarning2] = useState(false);
@@ -16,6 +19,7 @@ const DisplayProduct = (props) => {
     const [hoodie, setHoodie] = useState(false);
     const [socks, setSocks] = useState(false);
     const [jacket, setJacket] = useState(false);
+    const [updating, setUpdating] = useState(false);
 
     const getImages = async () => {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/images/${props.product._id}`);
@@ -65,9 +69,30 @@ const DisplayProduct = (props) => {
         }
     }
 
+    const deleteImage = (img) => {
+        const myImages = [...images];
+        const index = myImages.findIndex(image => img._id === image._id);
+        const myImagesToDelete = [...imagesToDelete];
+        myImagesToDelete.push(myImages[index]._id);
+        myImages.splice(index, 1);
+        if (index === 0) {
+            setMainImage(images[1])
+        }
+        setImages(myImages);
+        setImagesToDelete(myImagesToDelete);
+    }
+
     const displayImages = () => {
         if (images === '') {return}
         return images.map(image => {
+            if (images.length > 1) {
+                return ( 
+                    <span key={image._id} className='delete-photos'>
+                        <img src={image.imageData} alt='' onClick={() => setMainImage(image)}/>
+                        <i className='fa fa-trash' onClick={() => deleteImage(image)}></i>
+                    </span>
+                )
+            }
             return ( <img key={image._id} src={image.imageData} alt='' onClick={() => setMainImage(image)}/>)
         })
     }
@@ -82,11 +107,33 @@ const DisplayProduct = (props) => {
             setWarning2(true);
             return;
         }
+        setUpdating(true);
+        const optionsImagesDelete = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({images: imagesToDelete})
+        }
+        await fetch(`${process.env.REACT_APP_API_URL}/images`, optionsImagesDelete);
+        let myImages = [];
+        if (newImages !== '') {
+            const optionsImages = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newImages)
+            }
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/images/${props.product._id}`, optionsImages);
+            myImages = await response.json();
+        }
+        
         const product = {
             name: name,
             quantity: quantity,
             price: price,
-            images: props.product.images,
+            images: [...images, ...myImages],
             status: props.product.status,
             style: []
         }
@@ -113,7 +160,7 @@ const DisplayProduct = (props) => {
         const result = window.confirm('You cannot recover this product once it is deleted. Are you sure you want to continue?');
         if (!result) {return;}
         setWarning(true);
-        const imagesToDelete = {images: props.product.images};
+        const imagesDelete = {images: props.product.images};
         const options = {
             method: 'DELETE'
         }
@@ -126,12 +173,30 @@ const DisplayProduct = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(imagesToDelete)
+            body: JSON.stringify(imagesDelete)
         }
         console.log(options2)
         await fetch(`${process.env.REACT_APP_API_URL}/images`, options2);
         await props.getProducts();
         props.changeDisplay('All', '');
+    }
+
+    const getBaseFile = (files) => {
+        const imageObjs = [];
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].type !== 'image/jpeg') {
+                setImages('invalid');
+                return;
+            }
+            let imageObj = {
+                imageName: "base-image-" + Date.now(),
+                imageData: files[i].base64.toString(),
+                productId: props.product._id
+            };
+            imageObjs.push(imageObj);
+        }
+        setWarning(false);
+        setNewImages(imageObjs);
     }
 
     return (
@@ -144,7 +209,6 @@ const DisplayProduct = (props) => {
                 </div>
                 <div className='sub-images'>
                     {displayImages()}
-                    {/* {images.length > 1 ? <i className='fa fa-trash'></i> : ''} */}
                 </div>
             </section>
             <section className='display-product display-product-container'>
@@ -155,9 +219,13 @@ const DisplayProduct = (props) => {
                 <label>Price:</label>
                 <input value={price} onChange={({target}) => setPrice(target.value)}/>
                 <div style={{margin: '25px 0px'}}></div>
+                <FileBase type="file" multiple={true} onDone={getBaseFile} />
+                <div style={{margin: '25px 0px'}}></div>
+
                 <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
                 {warning2 ? <div className='danger'>Name, quantity and price fields must be filled</div> : ''}
                 <button style={{width: '100%'}} onClick={updateProduct}>Update</button>
+                {updating ? <div className='loading'>Updating Product - Do not refresh browser or return to home page</div>: ''}
                 {warning ? <div className='loading'>Deleting product - Do not refresh browser or return to home page</div> : ''}
                 <button style={{width: '100%', background: 'red', color:'white', marginBottom: '15px'}} onClick={deleteProduct}>Delete product</button>
             </section>

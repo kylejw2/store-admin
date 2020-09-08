@@ -214,10 +214,14 @@ p > i:hover {
   width: 300px;
 }
 
-.sub-images > img {
+.sub-images > img, .sub-images > span {
   width: 80px;
   margin: 5px;
-  border: 1px solid #e3e3e3;
+  /* border: 1px solid #e3e3e3; */
+}
+
+.sub-images > span {
+  display: inline;
 }
 
 .display-product-container {
@@ -237,6 +241,24 @@ p > i:hover {
 
 .danger {
   color: red;
+}
+
+.delete-photos {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-photos > img {
+  width: 80px;
+  margin: 5px;
+}
+
+.delete-photos > i {
+  color: #c11413;
+}
+
+.delete-photos > i:hover {
+  cursor: pointer;
 }
 
 @keyframes sidebar {

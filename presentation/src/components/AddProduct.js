@@ -11,7 +11,6 @@ const AddProduct = () => {
     const [images, setImages] = useState('');
     const [warning, setWarning] = useState(false);
     const [warning2, setWarning2] = useState(false);
-    // const [myImage, setMyImage] = useState('');
     const [shirt, setShirt] = useState(false);
     const [shoes, setShoes] = useState(false);
     const [pants, setPants] = useState(false);
@@ -91,7 +90,6 @@ const AddProduct = () => {
         const imageObjs = [];
         for (let i = 0; i < files.length; i++) {
             if (files[i].type !== 'image/jpeg') {
-                // setMyImage('');
                 setImages('invalid');
                 return;
             }
@@ -102,7 +100,6 @@ const AddProduct = () => {
             imageObjs.push(imageObj);
         }
         setWarning(false);
-        // setMyImage(imageObj.imageData);
         setImages(imageObjs);
     }
 

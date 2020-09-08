@@ -56,11 +56,20 @@ router.get('/:id', async (req, res) => {
 
 router.delete('/', async (req, res) => {
   const body = req.body;
-  console.log(body);
   const responses = [];
   for (let i = 0; i < body.images.length; i++) {
     const response = await deleteImages(body.images[i]);
     responses.push(response);
+  }
+  res.send(responses);
+})
+
+router.post('/:id', async (req, res) => {
+  const body = req.body;
+  const responses = [];
+  for (let i = 0; i < body.length; i++) {
+    const response = await uploadImage(body[i]);
+    await responses.push(response);
   }
   res.send(responses);
 })

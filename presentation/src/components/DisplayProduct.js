@@ -83,7 +83,7 @@ const DisplayProduct = (props) => {
     }
 
     const displayImages = () => {
-        if (images === '') {return}
+        if (images === '' || images === 'invalid') {return}
         return images.map(image => {
             if (images.length > 1) {
                 return ( 
@@ -221,7 +221,6 @@ const DisplayProduct = (props) => {
                 <input value={quantity} onChange={({target}) => setQuantity(target.value)}/>
                 <label>Price:</label>
                 <input value={price} onChange={({target}) => setPrice(target.value)}/>
-                <div style={{margin: '25px 0px'}}></div>
                 <label>Add Images:</label>
                 <FileBase type="file" multiple={true} onDone={getBaseFile} />
                 <div style={{margin: '25px 0px'}}></div>

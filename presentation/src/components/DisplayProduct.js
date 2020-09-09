@@ -222,6 +222,7 @@ const DisplayProduct = (props) => {
                 <label>Price:</label>
                 <input value={price} onChange={({target}) => setPrice(target.value)}/>
                 <div style={{margin: '25px 0px'}}></div>
+                <label>Add Images:</label>
                 <FileBase type="file" multiple={true} onDone={getBaseFile} />
                 <div style={{margin: '25px 0px'}}></div>
 

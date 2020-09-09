@@ -103,7 +103,7 @@ const DisplayProduct = (props) => {
     }
 
     const updateProduct = async () => {
-        if (name === '' || quantity === '' || price === '' ) {
+        if (name === '' || quantity === '' || price === '' || images === 'invalid') {
             setWarning2(true);
             return;
         }
@@ -227,7 +227,7 @@ const DisplayProduct = (props) => {
                 <div style={{margin: '25px 0px'}}></div>
 
                 <Tags handleCheck={handleCheck} shirt={shirt} shoes={shoes} pants={pants} hoodie={hoodie} socks={socks} jacket={jacket}/>
-                {warning2 ? <div className='danger'>Name, quantity and price fields must be filled</div> : ''}
+                {warning2 ? <div className='danger'>All fields must be filled and only JPEG images are allowed.</div> : ''}
                 <button style={{width: '100%'}} onClick={updateProduct}>Update</button>
                 {updating ? <div className='loading'>Updating Product - Do not refresh browser or return to home page</div>: ''}
                 {warning ? <div className='loading'>Deleting product - Do not refresh browser or return to home page</div> : ''}

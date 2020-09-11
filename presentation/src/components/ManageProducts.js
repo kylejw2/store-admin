@@ -88,11 +88,11 @@ const ManageProducts = (props) => {
         let myProducts = [];
 
         if (left.length > 0 && right.length > 0) {
-            myProducts = [...left, pivot, ...right];
+            myProducts = [...sortNum(val, left), pivot, ...sortNum(val, right)];
         } else if (left.length > 0) {
-            myProducts = [...left, pivot];
+            myProducts = [...sortNum(val, left), pivot];
         } else {
-            myProducts = [pivot, ...right];
+            myProducts = [pivot, ...sortNum(val, right)];
         }
 
         // const myProducts = [...products];

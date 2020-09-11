@@ -58,7 +58,8 @@ const ManageProducts = (props) => {
             }
         })
         setProducts(myProducts);
-        setLastChange('name')
+        if (lastChange === 'name') {setLastChange('')}
+        else {setLastChange('name')}
     }
 
     const quickSort = (val, array) => {

@@ -69,7 +69,7 @@ const ManageProducts = (props) => {
         const right = [];
         const pivot = array[array.length - 1];
 
-        for (let i = 0; i < array.length; i++) {
+        for (let i = 0; i < array.length - 1; i++) {
             if (+array[i][val] <= +pivot[i][val]) {
                 if (lastChange === val) {
                     right.push(array[i]);

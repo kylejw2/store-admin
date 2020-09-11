@@ -61,14 +61,47 @@ const ManageProducts = (props) => {
         setLastChange('name')
     }
 
-    const sortNum = (val) => {
-        const myProducts = [...products];
-        myProducts.sort((a,b) => {
-            if (lastChange === val) {
-                return +b[val] - +a[val];
+    const sortNum = (val, array) => {
+        // Quick sort algorithm
+        if (array.length <= 1) {return array;}
+
+        const left = [];
+        const right = [];
+        const pivot = array[array.length - 1];
+
+        for (let i = 0; i < array.length; i++) {
+            if (+array[i][val] <= +pivot[i][val]) {
+                if (lastChange === val) {
+                    right.push(array[i]);
+                    continue;
+                }
+                left.push(array[i]);
+            } else {
+                if (lastChange === val) {
+                    left.push(array[i]);
+                    continue;
+                }
+                right.push(array[i]);
             }
-            return +a[val] - +b[val];
-        });
+        }
+
+        let myProducts = [];
+
+        if (left.length > 0 && right.length > 0) {
+            myProducts = [...left, pivot, ...right];
+        } else if (left.length > 0) {
+            myProducts = [...left, pivot];
+        } else {
+            myProducts = [pivot, ...right];
+        }
+
+        // const myProducts = [...products];
+        // myProducts.sort((a,b) => {
+        //     if (lastChange === val) {
+        //         return +b[val] - +a[val];
+        //     }
+        //     return +a[val] - +b[val];
+        // });
         setProducts(myProducts);
         if (lastChange === val) {setLastChange('')}
         else {setLastChange(val);}
@@ -113,8 +146,8 @@ const ManageProducts = (props) => {
                     <thead className="table-head">
                         <tr>
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Product <i onClick={alphabetize} className='fa fa-sort'></i></th>
-                            <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Quantity <i onClick={() => sortNum('quantity')} className='fa fa-sort'></i></th>
-                            <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Price <i onClick={() => sortNum('price')} className='fa fa-sort'></i></th>
+                            <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Quantity <i onClick={() => sortNum('quantity', [...products])} className='fa fa-sort'></i></th>
+                            <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Price <i onClick={() => sortNum('price', [...products])} className='fa fa-sort'></i></th>
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Status <i onClick={sortActivity} className='fa fa-sort'></i></th>
                             <th scope="col" style={{width: `${window.innerWidth/5}px`}}>Actions</th>
                         </tr>

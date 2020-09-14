@@ -69,7 +69,7 @@ router.post('/:id', async (req, res) => {
   const responses = [];
   for (let i = 0; i < body.length; i++) {
     const response = await uploadImage(body[i]);
-    await responses.push(response);
+    await responses.push(response._id);
   }
   res.send(responses);
 })

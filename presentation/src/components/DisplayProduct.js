@@ -132,11 +132,13 @@ const DisplayProduct = (props) => {
             myImages = await response.json();
         }
         
+        const imageIDs = images.map(img => img._id);
+        
         const product = {
             name: name,
             quantity: quantity,
             price: price,
-            images: [...images, ...myImages],
+            images: [...imageIDs, ...myImages],
             status: props.product.status,
             style: []
         }
